@@ -1,0 +1,7 @@
+spring.application.name=accenture-franquicia-api
+
+# Configuración de MongoDB 
+spring.data.mongodb.uri=<<poner MongoDB URI aquí>>
+spring.data.mongodb.database=<<poner nombre de la base de datos aquí>>
+# Puerto del servidor
+server.port=<<poner puerto del servidor aquí>>
