@@ -153,9 +153,29 @@ Además, las pruebas utilizan un archivo `data.example.json` con datos precargad
 
 ## 🐳 Docker
 
+### ✅ Opción A: Ejecutar imagen desde Docker Hub
+
+Puedes ejecutar la API directamente desde Docker Hub sin necesidad de clonar ni compilar el proyecto:
+
 ```bash
-docker build -t franquicia-api .
-docker run -p 8080:8080 franquicia-api
+docker pull vslivecode/franquicia-api-accenture:latest
+docker run -p 8080:8080 vslivecode/franquicia-api-accenture:latest
+```
+Asegúrate de tener configurado el acceso a tu base de datos MongoDB.
+Puedes pasar las variables de entorno directamente al contenedor o montar un archivo application.properties
+
+### 🔧 Opción B: Construir la imagen localmente
+
+Si deseas construir la imagen en tu equipo desde el código fuente:
+
+# 1. Construye la imagen Docker
+```bash
+docker build -t franquicia-api-accenture .
+```
+
+# 2. Ejecuta el contenedor
+```bash
+docker run -p 8080:8080 franquicia-api-accenture
 ```
 
 ---
