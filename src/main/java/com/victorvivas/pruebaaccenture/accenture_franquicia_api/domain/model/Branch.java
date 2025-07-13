@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Branch {
+    private String id;
     private String name;
     private List<Product> products;
 }

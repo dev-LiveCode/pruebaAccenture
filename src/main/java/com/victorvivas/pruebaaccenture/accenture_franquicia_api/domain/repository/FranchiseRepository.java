@@ -1,5 +1,7 @@
 package com.victorvivas.pruebaaccenture.accenture_franquicia_api.domain.repository;
 
+import java.util.List;
+
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.domain.model.Franchise;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,6 +17,8 @@ public interface FranchiseRepository {
     Mono<Franchise> findById(String id);
 
     Flux<Franchise> findAll();
+
+    Flux<Franchise> saveAll(Flux<Franchise> franchises);
 
     Mono<Void> deleteById(String id);
 }

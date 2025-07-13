@@ -1,29 +1,28 @@
-
 # Franquicia API 🏬
 
-API para la gestión de franquicias, sucursales y productos, desarrollada como prueba técnica para el rol de desarrollador Backend para Accenture.
+API REST para la gestión de franquicias, sucursales y productos.  
+Desarrollada como prueba técnica para el rol de Backend Developer en **Accenture**.
 
 ---
 
 ## 🧱 Arquitectura del Proyecto
 
-Este proyecto implementa una arquitectura basada en **Clean Architecture**, principios **SOLID**, **Clean Code** y programación **reactiva** con Spring WebFlux.  
-Está diseñado para mantener un alto nivel de mantenibilidad, desacoplamiento y escalabilidad.
+El proyecto sigue los principios de **Clean Architecture**, **SOLID** y **Clean Code**, usando programación **reactiva** con Spring WebFlux para máxima escalabilidad y eficiencia.
 
 ```
-src/main/java/com/victorvivas/pruebaacenture/accenture_granquicia_api
+src/main/java/com/victorvivas/pruebaaccenture/accenture_franquicia_api
 │
-├── application/          → Casos de uso y orquestación de lógica
+├── application/        → Casos de uso y lógica de orquestación
 │
-├── domain/               → Lógica de negocio
-│   ├── model/            → Entidades del dominio: Franchise, Branch, Product
-│   └── repository/       → Interfaces (puertos de salida)
+├── domain/             → Lógica de negocio
+│   ├── model/          → Entidades: Franchise, Branch, Product
+│   └── repository/     → Interfaces de persistencia (puertos)
 │
-├── infrastructure/       → Adaptadores secundarios como MongoDB (puertos de entrada)
-│   └── persistence/      → Implementaciones de repositorios reactivos
+├── infrastructure/     → Adaptadores secundarios como MongoDB
+│   └── persistence/    → Repositorios reactivos e implementación
 │
-└── entrypoints/          → Adaptadores primarios
-    └── rest/             → Controladores expuestos como API REST
+└── entrypoints/
+    └── rest/           → Controladores API REST
 ```
 
 ---
@@ -42,71 +41,91 @@ src/main/java/com/victorvivas/pruebaacenture/accenture_granquicia_api
 
 ---
 
-## 🧪 Funcionalidades Implementadas
+## 🚀 Endpoints implementados
 
-1. ➕ Crear una nueva **franquicia**
-2. ➕ Agregar una **sucursal** a una franquicia existente
-3. ➕ Agregar un **producto** a una sucursal
-4. ❌ Eliminar un producto de una sucursal
-5. 🔁 Modificar el **stock** de un producto
-6. 📈 Obtener el **producto con mayor stock** por sucursal para una franquicia
-7. 📝 Actualizar el nombre de la **franquicia**
-8. 📝 Actualizar el nombre de una **sucursal**
-9. 📝 Actualizar el nombre de un **producto**
+### 📌 Franquicias
+
+| Método | Endpoint                            | Descripción                                         |
+|--------|-------------------------------------|-----------------------------------------------------|
+| POST   | `/api/franchises`                  | Crear nueva franquicia (con o sin sucursales)       |
+| GET    | `/api/franchises`                  | Listar todas las franquicias con su estructura      |
+| PATCH  | `/api/franchises/{franchiseId}`    | Actualizar nombre de una franquicia                |
+| POST   | `/api/franchises/bulk`             | Carga masiva de franquicias                        |
+
+### 🏢 Sucursales
+
+| Método | Endpoint                                               | Descripción                                     |
+|--------|--------------------------------------------------------|-------------------------------------------------|
+| POST   | `/api/franchises/{franchiseId}/branches`              | Añadir sucursal a una franquicia               |
+| GET    | `/api/franchises/{franchiseId}/branches`              | Listar sucursales de una franquicia            |
+| PATCH  | `/api/franchises/{franchiseId}/branches/{branchId}`   | Actualizar nombre de una sucursal              |
+
+### 📦 Productos
+
+| Método | Endpoint                                                                             | Descripción                                           |
+|--------|--------------------------------------------------------------------------------------|-------------------------------------------------------|
+| POST   | `/api/franchises/{franchiseId}/branches/{branchId}/products`                       | Agregar productos a una sucursal                     |
+| GET    | `/api/franchises/{franchiseId}/branches/{branchId}/products`                       | Listar productos de una sucursal                     |
+| DELETE | `/api/franchises/{franchiseId}/branches/{branchId}/products/{productId}`           | Eliminar producto de una sucursal                    |
+| PATCH  | `/api/franchises/{franchiseId}/branches/{branchId}/products/{productId}`           | Actualizar nombre de un producto                     |
+| GET    | `/api/franchises/{franchiseId}/branches/top-products`                              | Obtener producto con mayor stock por sucursal        |
 
 ---
 
-## 🚀 Cómo ejecutar la aplicación
+## 🧪 Cómo probar la API
 
 ### 1. Clona el repositorio
-
 ```bash
 git clone https://github.com/dev-LiveCode/pruebaAccenture
 cd pruebaAccenture
 ```
 
-### 2. Configura la conexión a la base de datos
-
-Crea un archivo `src/main/resources/application.properties` con la siguiente configuración:
-
+### 2. Configurar la conexión en `src/main/resources/application.properties`:
 ```properties
 server.port=8080
-spring.data.mongodb.uri=mongodb+srv://<usuario>:<clave>@cluster0.mongodb.net/prueba-accenture-franquicia?retryWrites=true&w=majority
+spring.data.mongodb.uri=mongodb+srv://<usuario>:<clave>@cluster.mongodb.net/prueba-accenture-franquicia
 ```
 
-> ⚠️ Por seguridad, no compartas credenciales reales en este archivo si vas a subir el proyecto.
+> ⚠️ Por seguridad, no se comparten credenciales reales en este archivo.
 
-### 3. Ejecuta el proyecto
-
+### 3. Ejecutar:
 ```bash
 ./mvnw spring-boot:run
 ```
-
-O en Windows CMD:
-
-```cmd
-mvnw spring-boot:run
+```Windows cmd
+./mvnw spring-boot:run
 ```
 
-### 4. Prueba los endpoints
-
-Una vez en ejecución, accede a:  
-📍 `http://localhost:8080/api/franquicias`
-
-Puedes usar herramientas como **Postman** o **cURL** para probar los endpoints.
+### 4. Probar la API en Postman:  
+📬 [Descargar colección Postman](./postman/franquicia-api-collection.json) 
 
 ---
 
-## 📦 Docker
+## 🧪 Objetos de prueba
 
-Puedes construir la imagen con:
+```json
+{
+  "name": "Tiendas D1",
+  "branches": [
+    {
+      "name": "Sucursal 1",
+      "products": [
+        { "name": "Arroz", "stock": 10 },
+        { "name": "Aceite", "stock": 20 }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 🐳 Docker
 
 ```bash
 docker build -t franquicia-api .
 docker run -p 8080:8080 franquicia-api
 ```
-
-(El archivo `Dockerfile` está incluido en el proyecto.)
 
 ---
 
@@ -116,50 +135,34 @@ docker run -p 8080:8080 franquicia-api
 ./mvnw test
 ```
 
-Se incluyen pruebas para la lógica de negocio y controladores.
+---
+
+## ✅ Checklist de criterios cubiertos
+
+| Criterio                                                   | Estado     |
+|------------------------------------------------------------|------------|
+| Spring Boot                                                | ✅ Hecho    |
+| Endpoints solicitados                                      | ✅ Hecho    |
+| MongoDB Atlas                                              | ✅ Hecho    |
+| Programación reactiva (WebFlux)                            | ✅ Hecho    |
+| Clean Architecture                                         | ✅ Hecho    |
+| Docker                                                     | 🔄 En progreso |
+| Infraestructura como código (Terraform)                    | 🔄 En progreso |
+| Pruebas unitarias                                          | 🔄 En progreso |
+| Buenas prácticas (SOLID, Clean Code)                       | ✅ Hecho    |
+| Control de excepciones personalizado                       | ✅ Hecho    |
+| Documentación de endpoints y DTOs                          | ✅ Hecho    |
 
 ---
 
-## 📁 Estructura sugerida para Infraestructura como Código (IaC)
-
-El proyecto está preparado para usar infraestructura como código con Terraform. La estructura será:
-
-```
-infra/
-├── main.tf
-├── variables.tf
-└── outputs.tf
-```
-
-(Próxima implementación)
-
----
-
-## 🧑‍💻 Autor
+## 👨‍💻 Autor
 
 Victor Vivas  
-Full Stack Developer 🚀🪐 | Clean architecture lover  
-GitHub: [@dev-LiveCode](https://github.com/dev-LiveCode)
+Full Stack Developer | Clean Architecture Lover  
+🔗 [@dev-LiveCode](https://github.com/dev-LiveCode)
 
 ---
 
 ## 📄 Licencia
 
 MIT License
-
----
-
-### ✅ Checklist de criterios cubiertos
-
-| Criterio                                                   | Estado     |
-|------------------------------------------------------------|------------|
-| Spring Boot                                                | ✅ Hecho    |
-| Endpoints solicitados                                      | 🔄 En progreso    |
-| MongoDB (en la nube)                                       | ✅ Hecho    |
-| Programación reactiva                                      | 🔄 En progreso    |
-| Clean Architecture                                         | ✅ Hecho    |
-| Docker                                                     | 🔄 En progreso    |
-| Infraestructura como código                                | 🔄 En progreso |
-| Pruebas unitarias                                          | 🔄 En progreso    |
-| Documentación y despliegue local                           | 🔄 En progreso    |
-| Buenas prácticas de código (SOLID, Clean Code)             | 🔄 En progreso    |
