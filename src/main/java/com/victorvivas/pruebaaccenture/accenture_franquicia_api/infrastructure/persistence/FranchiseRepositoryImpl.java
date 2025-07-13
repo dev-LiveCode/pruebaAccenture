@@ -62,4 +62,9 @@ public class FranchiseRepositoryImpl implements FranchiseRepository {
             .map(mapper::toDomain);
     }
 
+    @Override
+    public Mono<Void> deleteAll() {
+        return reactiveRepo.deleteAll();
+    }
+
 }
