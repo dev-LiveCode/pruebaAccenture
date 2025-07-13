@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "8efbded6-6528-4325-8d40-6182a6f12370",
+		"name": "Franchise API - Collection - Accenture",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27791946"
+	},
+	"item": [
+		{
+			"name": "Create Franchise",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Supermercados Colombia\",\n  \"branches\": [\n    {\n      \"name\": \"Sucursal Norte\",\n      \"products\": [\n        { \"name\": \"Arroz Diana\", \"stock\": 100 },\n        { \"name\": \"Frijol Rojo\", \"stock\": 50 }\n      ]\n    },\n    {\n      \"name\": \"Sucursal Sur\",\n      \"products\": [\n        { \"name\": \"Aceite Gourmet\", \"stock\": 30 },\n        { \"name\": \"Azúcar Morena\", \"stock\": 75 }\n      ]\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Branch to Franchise",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Sucursal Nueva\",\n  \"products\": [\n    { \"name\": \"Producto Z\", \"stock\": 40 }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "92556c47-6360-464b-b39f-947939ecaac8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Products to Branch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  { \"name\": \"Producto X\", \"stock\": 10 },\n  { \"name\": \"Producto Y\", \"stock\": 25 }\n]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/:branchId/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						":branchId",
+						"products"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "92556c47-6360-464b-b39f-947939ecaac8"
+						},
+						{
+							"key": "branchId",
+							"value": "eadc0e1c-50fd-4288-9466-4bf7c9e2d89f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bulk data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"name\": \"Franquicia Vacía\"\r\n  },\r\n  {\r\n    \"name\": \"Supermercados La 14\",\r\n    \"branches\": [\r\n      {\r\n        \"name\": \"Sucursal Norte\",\r\n        \"products\": [\r\n          { \"name\": \"Arroz\", \"stock\": 100 },\r\n          { \"name\": \"Frijoles\", \"stock\": 50 },\r\n          { \"name\": \"Azúcar\", \"stock\": 0 }\r\n        ]\r\n      },\r\n      {\r\n        \"name\": \"Sucursal Centro\",\r\n        \"products\": [\r\n          { \"name\": \"Aceite\", \"stock\": 25 },\r\n          { \"name\": \"Sal\", \"stock\": 0 },\r\n          { \"name\": \"Chocolate\", \"stock\": 70 }\r\n        ]\r\n      },\r\n      {\r\n        \"name\": \"Sucursal Sur\",\r\n        \"products\": [\r\n          { \"name\": \"Leche\", \"stock\": 0 },\r\n          { \"name\": \"Queso\", \"stock\": 40 }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Droguerías FarmaTodo\",\r\n    \"branches\": [\r\n      { \"name\": \"Sucursal Suba\" },\r\n      { \"name\": \"Sucursal Usaquén\" },\r\n      {\r\n        \"name\": \"Sucursal Bosa\",\r\n        \"products\": [\r\n          { \"name\": \"Aspirina\", \"stock\": 200 },\r\n          { \"name\": \"Jarabe\", \"stock\": 0 },\r\n          { \"name\": \"Paracetamol\", \"stock\": 10 }\r\n        ]\r\n      },\r\n      { \"name\": \"Sucursal Engativá\" },\r\n      { \"name\": \"Sucursal Fontibón\" }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Panaderías La Estrella\",\r\n    \"branches\": [\r\n      {\r\n        \"name\": \"Sucursal Teusaquillo\",\r\n        \"products\": [\r\n          { \"name\": \"Pan francés\", \"stock\": 0 },\r\n          { \"name\": \"Croissant\", \"stock\": 12 },\r\n          { \"name\": \"Torta\", \"stock\": 5 }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"ElectroHogar\"\r\n  },\r\n  {\r\n    \"name\": \"Librerías Mundo Libro\",\r\n    \"branches\": [\r\n      {\r\n        \"name\": \"Sucursal Chapinero\",\r\n        \"products\": [\r\n          { \"name\": \"Cien años de soledad\", \"stock\": 12 },\r\n          { \"name\": \"1984\", \"stock\": 0 },\r\n          { \"name\": \"Don Quijote\", \"stock\": 8 }\r\n        ]\r\n      },\r\n      {\r\n        \"name\": \"Sucursal Kennedy\",\r\n        \"products\": [\r\n          { \"name\": \"Rayuela\", \"stock\": 0 },\r\n          { \"name\": \"El Principito\", \"stock\": 5 }\r\n        ]\r\n      },\r\n      {\r\n        \"name\": \"Sucursal Cedritos\"\r\n      },\r\n      {\r\n        \"name\": \"Sucursal Galerías\"\r\n      },\r\n      {\r\n        \"name\": \"Sucursal San Victorino\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"TechZone\",\r\n    \"branches\": [\r\n      {\r\n        \"name\": \"Sucursal Bogotá Centro\",\r\n        \"products\": [\r\n          { \"name\": \"Laptop Lenovo\", \"stock\": 0 },\r\n          { \"name\": \"Teclado Gamer\", \"stock\": 25 }\r\n        ]\r\n      },\r\n      {\r\n        \"name\": \"Sucursal Medellín\",\r\n        \"products\": [\r\n          { \"name\": \"Mouse Inalámbrico\", \"stock\": 0 },\r\n          { \"name\": \"Pantalla LED\", \"stock\": 0 }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Heladería Dulce Nieve\",\r\n    \"branches\": [\r\n      {\r\n        \"name\": \"Sucursal Usaquén\",\r\n        \"products\": [\r\n          { \"name\": \"Helado de vainilla\", \"stock\": 0 },\r\n          { \"name\": \"Helado de chocolate\", \"stock\": 10 },\r\n          { \"name\": \"Helado de fresa\", \"stock\": 0 }\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product from Branch",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/:branchId/products/:productId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						":branchId",
+						"products",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "92556c47-6360-464b-b39f-947939ecaac8"
+						},
+						{
+							"key": "branchId",
+							"value": "eadc0e1c-50fd-4288-9466-4bf7c9e2d89f"
+						},
+						{
+							"key": "productId",
+							"value": "ff9aa591-30d5-4ee3-a003-a826aff088af"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all (only test)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/delete-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						"delete-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Franchises",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/franchises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Branches by Franchise",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "9abd6a8a-614b-4165-b14d-1990cd6a2500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products by Branch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/:branchId/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						":branchId",
+						"products"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "9abd6a8a-614b-4165-b14d-1990cd6a2500"
+						},
+						{
+							"key": "branchId",
+							"value": "46178ba2-417b-4a96-8385-567f2901a051"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Product per Branch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/top-products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						"top-products"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "9abd6a8a-614b-4165-b14d-1990cd6a2500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Franchise Name",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Nuevo Nombre Franquicia\" }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "03f28280-000c-4be8-a888-adeeb43919e7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Branch Name",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Nuevo Nombre Sucursal\" }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/:branchId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						":branchId"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "03f28280-000c-4be8-a888-adeeb43919e7"
+						},
+						{
+							"key": "branchId",
+							"value": "8102b1cd-cedb-412f-8740-6a234fff9cbb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product Name",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Nuevo Nombre Producto\" }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/:branchId/products/:productId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						":branchId",
+						"products",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "03f28280-000c-4be8-a888-adeeb43919e7"
+						},
+						{
+							"key": "branchId",
+							"value": "8102b1cd-cedb-412f-8740-6a234fff9cbb"
+						},
+						{
+							"key": "productId",
+							"value": "b0e562e1-7e36-48e1-a858-a2abaf067e41"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product Stock",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"stock\": 10 }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/franchises/:franchiseId/branches/:branchId/products/:productId/stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"franchises",
+						":franchiseId",
+						"branches",
+						":branchId",
+						"products",
+						":productId",
+						"stock"
+					],
+					"variable": [
+						{
+							"key": "franchiseId",
+							"value": "03f28280-000c-4be8-a888-adeeb43919e7"
+						},
+						{
+							"key": "branchId",
+							"value": "8102b1cd-cedb-412f-8740-6a234fff9cbb"
+						},
+						{
+							"key": "productId",
+							"value": "b0e562e1-7e36-48e1-a858-a2abaf067e41"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
