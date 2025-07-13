@@ -21,4 +21,6 @@ public interface FranchiseRepository {
     Flux<Franchise> saveAll(Flux<Franchise> franchises);
 
     Mono<Void> deleteById(String id);
+
+    Mono<Void> deleteAll();
 }

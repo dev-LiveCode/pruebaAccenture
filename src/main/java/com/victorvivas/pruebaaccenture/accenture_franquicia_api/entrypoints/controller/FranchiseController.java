@@ -8,6 +8,7 @@ import com.victorvivas.pruebaaccenture.accenture_franquicia_api.entrypoints.dto.
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.entrypoints.dto.FranchiseDTO;
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.entrypoints.dto.NameUpdateDTO;
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.entrypoints.dto.ProductDTO;
+import com.victorvivas.pruebaaccenture.accenture_franquicia_api.entrypoints.dto.StockUpdateDTO;
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.entrypoints.dto.TopProductPerBranchResponse;
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.infrastructure.exception.ResourceNotFoundException;
 
@@ -415,6 +416,58 @@ public class FranchiseController {
         }).toList();
 
         return franchiseRepository.saveAll(Flux.fromIterable(franchisesToSave));
+    }
+
+    /**
+     * Elimina todas las franquicias del sistema junto con sus sucursales y
+     * productos.
+     * Este endpoint está diseñado exclusivamente para pruebas y no debe estar
+     * habilitado en producción.
+     *
+     * @return Mensaje de confirmación al finalizar la operación.
+     */
+    @DeleteMapping("/delete-all")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteAllFranchises() {
+        return franchiseRepository.deleteAll();
+    }
+
+    /**
+     * Actualiza el stock de un producto específico dentro de una sucursal y
+     * franquicia dadas.
+     *
+     * @param franchiseId    Identificador único de la franquicia.
+     * @param branchId       Identificador único de la sucursal.
+     * @param productId      Identificador único del producto.
+     * @param stockUpdateDTO Objeto que contiene el nuevo valor de stock.
+     * @return El producto actualizado con el nuevo stock.
+     * @throws ResourceNotFoundException Si la franquicia, sucursal o producto no
+     *                                   existen.
+     */
+    @PatchMapping("/{franchiseId}/branches/{branchId}/products/{productId}/stock")
+    public Mono<Product> updateProductStock(
+            @PathVariable String franchiseId,
+            @PathVariable String branchId,
+            @PathVariable String productId,
+            @RequestBody StockUpdateDTO stockUpdateDTO) {
+
+        return franchiseRepository.findById(franchiseId)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException("Franchise not found with id: " + franchiseId)))
+                .flatMap(franchise -> {
+                    Branch branch = franchise.getBranches().stream()
+                            .filter(b -> b.getId().equals(branchId))
+                            .findFirst()
+                            .orElseThrow(() -> new ResourceNotFoundException("Branch not found with id: " + branchId));
+
+                    Product product = branch.getProducts().stream()
+                            .filter(p -> p.getId().equals(productId))
+                            .findFirst()
+                            .orElseThrow(
+                                    () -> new ResourceNotFoundException("Product not found with id: " + productId));
+
+                    product.setStock(stockUpdateDTO.getStock());
+                    return franchiseRepository.save(franchise).thenReturn(product);
+                });
     }
 
 }

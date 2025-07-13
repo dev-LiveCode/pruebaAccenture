@@ -54,6 +54,7 @@ public class FranchiseMapper {
 
     private BranchEntity toEntity(Branch branch) {
         BranchEntity entity = new BranchEntity();
+        entity.setId(branch.getId());
         entity.setName(branch.getName());
 
         if (branch.getProducts() != null) {
@@ -70,6 +71,7 @@ public class FranchiseMapper {
 
     private Branch toDomain(BranchEntity entity) {
         Branch branch = new Branch();
+        branch.setId(entity.getId());
         branch.setName(entity.getName());
 
         if (entity.getProducts() != null) {
