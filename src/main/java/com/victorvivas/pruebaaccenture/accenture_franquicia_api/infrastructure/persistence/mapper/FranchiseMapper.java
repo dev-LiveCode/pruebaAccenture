@@ -8,6 +8,7 @@ import com.victorvivas.pruebaaccenture.accenture_franquicia_api.infrastructure.p
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.infrastructure.persistence.entity.ProductEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,15 @@ public class FranchiseMapper {
         entity.setId(franchise.getId());
         entity.setName(franchise.getName());
 
-        List<BranchEntity> branchEntities = franchise.getBranches().stream()
-                .map(this::toEntity)
-                .collect(Collectors.toList());
+        if (franchise.getBranches() != null) {
+            List<BranchEntity> branchEntities = franchise.getBranches().stream()
+                    .map(this::toEntity)
+                    .collect(Collectors.toList());
+            entity.setBranches(branchEntities);
+        } else {
+            entity.setBranches(new ArrayList<>());
+        }
 
-        entity.setBranches(branchEntities);
         return entity;
     }
 
@@ -35,11 +40,15 @@ public class FranchiseMapper {
         franchise.setId(entity.getId());
         franchise.setName(entity.getName());
 
-        List<Branch> branches = entity.getBranches().stream()
-                .map(this::toDomain)
-                .collect(Collectors.toList());
+        if (entity.getBranches() != null) {
+            List<Branch> branches = entity.getBranches().stream()
+                    .map(this::toDomain)
+                    .collect(Collectors.toList());
+            franchise.setBranches(branches);
+        } else {
+            franchise.setBranches(new ArrayList<>());
+        }
 
-        franchise.setBranches(branches);
         return franchise;
     }
 
@@ -47,11 +56,15 @@ public class FranchiseMapper {
         BranchEntity entity = new BranchEntity();
         entity.setName(branch.getName());
 
-        List<ProductEntity> products = branch.getProducts().stream()
-                .map(this::toEntity)
-                .collect(Collectors.toList());
+        if (branch.getProducts() != null) {
+            List<ProductEntity> products = branch.getProducts().stream()
+                    .map(this::toEntity)
+                    .collect(Collectors.toList());
+            entity.setProducts(products);
+        } else {
+            entity.setProducts(new ArrayList<>());
+        }
 
-        entity.setProducts(products);
         return entity;
     }
 
@@ -59,19 +72,24 @@ public class FranchiseMapper {
         Branch branch = new Branch();
         branch.setName(entity.getName());
 
-        List<Product> products = entity.getProducts().stream()
-                .map(this::toDomain)
-                .collect(Collectors.toList());
+        if (entity.getProducts() != null) {
+            List<Product> products = entity.getProducts().stream()
+                    .map(this::toDomain)
+                    .collect(Collectors.toList());
+            branch.setProducts(products);
+        } else {
+            branch.setProducts(new ArrayList<>());
+        }
 
-        branch.setProducts(products);
         return branch;
     }
 
     private ProductEntity toEntity(Product product) {
-        return new ProductEntity(product.getName(), product.getStock());
+        return new ProductEntity(product.getId(), product.getName(), product.getStock());
     }
 
     private Product toDomain(ProductEntity entity) {
-        return new Product(entity.getName(), entity.getStock());
+        return new Product(entity.getId(), entity.getName(), entity.getStock());
     }
+
 }

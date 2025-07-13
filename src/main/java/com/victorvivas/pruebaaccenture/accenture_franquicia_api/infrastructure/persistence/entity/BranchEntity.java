@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * Representa una sucursal como documento embebido dentro de una franquicia.
  */
@@ -13,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BranchEntity {
+    @Id
+    private String id;
     private String name;
     private List<ProductEntity> products;
 }

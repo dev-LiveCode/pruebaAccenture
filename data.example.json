@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Franquicia Vacía"
+  },
+  {
+    "name": "Supermercados La 14",
+    "branches": [
+      {
+        "name": "Sucursal Norte",
+        "products": [
+          { "name": "Arroz", "stock": 100 },
+          { "name": "Frijoles", "stock": 50 },
+          { "name": "Azúcar", "stock": 0 }
+        ]
+      },
+      {
+        "name": "Sucursal Centro",
+        "products": [
+          { "name": "Aceite", "stock": 25 },
+          { "name": "Sal", "stock": 0 },
+          { "name": "Chocolate", "stock": 70 }
+        ]
+      },
+      {
+        "name": "Sucursal Sur",
+        "products": [
+          { "name": "Leche", "stock": 0 },
+          { "name": "Queso", "stock": 40 }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Droguerías FarmaTodo",
+    "branches": [
+      { "name": "Sucursal Suba" },
+      { "name": "Sucursal Usaquén" },
+      {
+        "name": "Sucursal Bosa",
+        "products": [
+          { "name": "Aspirina", "stock": 200 },
+          { "name": "Jarabe", "stock": 0 },
+          { "name": "Paracetamol", "stock": 10 }
+        ]
+      },
+      { "name": "Sucursal Engativá" },
+      { "name": "Sucursal Fontibón" }
+    ]
+  },
+  {
+    "name": "Panaderías La Estrella",
+    "branches": [
+      {
+        "name": "Sucursal Teusaquillo",
+        "products": [
+          { "name": "Pan francés", "stock": 0 },
+          { "name": "Croissant", "stock": 12 },
+          { "name": "Torta", "stock": 5 }
+        ]
+      }
+    ]
+  },{
+    "name": "ElectroHogar"
+  },
+  {
+    "name": "Librerías Mundo Libro",
+    "branches": [
+      {
+        "name": "Sucursal Chapinero",
+        "products": [
+          { "name": "Cien años de soledad", "stock": 12 },
+          { "name": "1984", "stock": 0 },
+          { "name": "Don Quijote", "stock": 8 }
+        ]
+      },
+      {
+        "name": "Sucursal Kennedy",
+        "products": [
+          { "name": "Rayuela", "stock": 0 },
+          { "name": "El Principito", "stock": 5 }
+        ]
+      },
+      {
+        "name": "Sucursal Cedritos"
+      },
+      {
+        "name": "Sucursal Galerías"
+      },
+      {
+        "name": "Sucursal San Victorino"
+      }
+    ]
+  },
+  {
+    "name": "TechZone",
+    "branches": [
+      {
+        "name": "Sucursal Bogotá Centro",
+        "products": [
+          { "name": "Laptop Lenovo", "stock": 0 },
+          { "name": "Teclado Gamer", "stock": 25 }
+        ]
+      },
+      {
+        "name": "Sucursal Medellín",
+        "products": [
+          { "name": "Mouse Inalámbrico", "stock": 0 },
+          { "name": "Pantalla LED", "stock": 0 }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Heladería Dulce Nieve",
+    "branches": [
+      {
+        "name": "Sucursal Usaquén",
+        "products": [
+          { "name": "Helado de vainilla", "stock": 0 },
+          { "name": "Helado de chocolate", "stock": 10 },
+          { "name": "Helado de fresa", "stock": 0 }
+        ]
+      }
+    ]
+  }
+]

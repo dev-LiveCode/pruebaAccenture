@@ -2,7 +2,11 @@ package com.victorvivas.pruebaaccenture.accenture_franquicia_api.infrastructure.
 
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.domain.model.Franchise;
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.domain.repository.FranchiseRepository;
+import com.victorvivas.pruebaaccenture.accenture_franquicia_api.infrastructure.persistence.entity.FranchiseEntity;
 import com.victorvivas.pruebaaccenture.accenture_franquicia_api.infrastructure.persistence.mapper.FranchiseMapper;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -48,4 +52,14 @@ public class FranchiseRepositoryImpl implements FranchiseRepository {
     public Mono<Void> deleteById(String id) {
         return reactiveRepo.deleteById(id);
     }
+
+    @Override
+    public Flux<Franchise> saveAll(Flux<Franchise> franchises) {
+        return franchises
+            .map(mapper::toEntity)
+            .collectList()
+            .flatMapMany(reactiveRepo::saveAll)
+            .map(mapper::toDomain);
+    }
+
 }
