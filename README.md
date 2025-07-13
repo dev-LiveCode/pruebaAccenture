@@ -12,17 +12,19 @@ El proyecto sigue los principios de **Clean Architecture**, **SOLID** y **Clean 
 ```
 src/main/java/com/victorvivas/pruebaaccenture/accenture_franquicia_api
 │
-├── application/        → Casos de uso y lógica de orquestación
-│
 ├── domain/             → Lógica de negocio
 │   ├── model/          → Entidades: Franchise, Branch, Product
 │   └── repository/     → Interfaces de persistencia (puertos)
 │
 ├── infrastructure/     → Adaptadores secundarios como MongoDB
+│   ├── exception/    → Manejador de excepciones
 │   └── persistence/    → Repositorios reactivos e implementación
 │
-└── entrypoints/
-    └── rest/           → Controladores API REST
+├── entrypoints/
+│   ├── controller/           → Controladores API REST
+│   └── dto/           → Objetos de transferencia de datos
+│
+└── resources/           → Application.properties
 ```
 
 ---
@@ -51,6 +53,8 @@ src/main/java/com/victorvivas/pruebaaccenture/accenture_franquicia_api
 | GET    | `/api/franchises`                  | Listar todas las franquicias con su estructura      |
 | PATCH  | `/api/franchises/{franchiseId}`    | Actualizar nombre de una franquicia                |
 | POST   | `/api/franchises/bulk`             | Carga masiva de franquicias                        |
+| DELETE | `/api/franchises/all`              | Eliminar todas las franquicias (solo para pruebas) |
+
 
 ### 🏢 Sucursales
 
@@ -68,7 +72,8 @@ src/main/java/com/victorvivas/pruebaaccenture/accenture_franquicia_api
 | GET    | `/api/franchises/{franchiseId}/branches/{branchId}/products`                       | Listar productos de una sucursal                     |
 | DELETE | `/api/franchises/{franchiseId}/branches/{branchId}/products/{productId}`           | Eliminar producto de una sucursal                    |
 | PATCH  | `/api/franchises/{franchiseId}/branches/{branchId}/products/{productId}`           | Actualizar nombre de un producto                     |
-| GET    | `/api/franchises/{franchiseId}/branches/top-products`                              | Obtener producto con mayor stock por sucursal        |
+| PATCH  | `/api/franchises/{franchiseId}/branches/{branchId}/products/{productId}/stock`     | Actualizar stock de un producto                     |
+| GET    | `/api/franchises/{franchiseId}/branches/top-products`                              | Obtener producto con mayor stock por sucursal
 
 ---
 
@@ -97,7 +102,7 @@ spring.data.mongodb.uri=mongodb+srv://<usuario>:<clave>@cluster.mongodb.net/prue
 ```
 
 ### 4. Probar la API en Postman:  
-📬 [Descargar colección Postman](./postman/franquicia-api-collection.json) 
+📬 [Descargar colección Postman](./postman/Franchise API - Collection - Accenture.postman_collection.json) 
 
 ---
 
@@ -116,6 +121,32 @@ spring.data.mongodb.uri=mongodb+srv://<usuario>:<clave>@cluster.mongodb.net/prue
     }
   ]
 }
+```
+
+---
+
+## 🧪 Pruebas automatizadas
+
+El proyecto incluye pruebas automatizadas para los siguientes endpoints usando `JUnit 5` y `WebTestClient`:
+
+| Endpoint probado                                                        | Tipo de prueba       |
+|------------------------------------------------------------------------|----------------------|
+| `POST /api/franchises`                                                 | Crear franquicia     |
+| `GET /api/franchises`                                                  | Obtener todas        |
+| `PATCH /api/franchises/{id}`                                           | Actualizar nombre    |
+| `POST /api/franchises/{id}/branches`                                   | Crear sucursal       |
+| `PATCH /api/franchises/{id}/branches/{id}`                             | Actualizar sucursal  |
+| `POST /api/franchises/{id}/branches/{id}/products`                     | Agregar productos    |
+| `PATCH /api/franchises/{id}/branches/{id}/products/{id}`               | Actualizar producto  |
+| `PATCH /api/franchises/{id}/branches/{id}/products/{id}/stock`         | Actualizar stock     |
+| `GET /api/franchises/{id}/branches/top-products`                       | Mayor stock          |
+| `DELETE /api/franchises/{id}/branches/{id}/products/{id}`              | Eliminar producto    |
+
+Además, las pruebas utilizan un archivo `data.example.json` con datos precargados de ejemplo para validación estructurada.
+
+> ✅ Las pruebas pueden ejecutarse con:
+```bash
+./mvnw test
 ```
 
 ---
@@ -148,7 +179,7 @@ docker run -p 8080:8080 franquicia-api
 | Clean Architecture                                         | ✅ Hecho    |
 | Docker                                                     | 🔄 En progreso |
 | Infraestructura como código (Terraform)                    | 🔄 En progreso |
-| Pruebas unitarias                                          | 🔄 En progreso |
+| Pruebas unitarias                                          | ✅ Hecho |
 | Buenas prácticas (SOLID, Clean Code)                       | ✅ Hecho    |
 | Control de excepciones personalizado                       | ✅ Hecho    |
 | Documentación de endpoints y DTOs                          | ✅ Hecho    |
