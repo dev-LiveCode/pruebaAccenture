@@ -197,7 +197,7 @@ docker run -p 8080:8080 franquicia-api-accenture
 | MongoDB Atlas                                              | ✅ Hecho    |
 | Programación reactiva (WebFlux)                            | ✅ Hecho    |
 | Clean Architecture                                         | ✅ Hecho    |
-| Docker                                                     | 🔄 En progreso |
+| Docker                                                     | ✅ Hecho |
 | Infraestructura como código (Terraform)                    | 🔄 En progreso |
 | Pruebas unitarias                                          | ✅ Hecho |
 | Buenas prácticas (SOLID, Clean Code)                       | ✅ Hecho    |
